@@ -17,6 +17,7 @@ M.default = function(workspace, venv_name)
 
 	-- Find and use virtualenv in workspace directory.
 	for _, pattern in ipairs(patterns) do
+    workspace = workspace or vim.fn.getcwd()
 		local match = vim.fn.glob(path.join(workspace, pattern, "pyvenv.cfg"))
 		if match ~= "" then
 			if string.find(match, "\n") then
@@ -37,6 +38,8 @@ M.default = function(workspace, venv_name)
 end
 
 M.poetry = function(workspace, _)
+  workspace = workspace or vim.fn.getcwd()
+  print("workspace:", workspace)
 	-- If no standard venv found look for poetry
 	local match = vim.fn.glob(path.join(workspace, "poetry.lock"))
 
